@@ -41,6 +41,7 @@ app.get('/api/blogs',function(req,res){
 		res.send(docs);
 	})
 });
+
 app.post('/api/blogs',function(req,res){
 	console.log("Received a POST request");
 	for (var key in req.body){
@@ -49,5 +50,25 @@ app.post('/api/blogs',function(req,res){
 	var blog = new Blog(req.body);
 	blog.save(function(err,doc){
 		res.send(doc);
-	})
+	});
 });
+
+
+app.delete('/api/blogs/:id',function(req,res){
+	console.log("Received a DELETE request for _id: "+req.params.id);
+	Blog.remove({_id:req.params.id},
+		function(err){
+			res.send({_id : req.params.id});
+		});
+});
+
+
+
+app.put('/api/blogs/:id',function(req,res){
+	console.log("Received a PUT request for _id: "+req.params.id);
+	Blog.update({_id:req.params.id},
+		req.body, function(err){
+			res.send({_id : req.body.id});
+		});
+});
+
