@@ -1,0 +1,22 @@
+{
+  "name": "Backbone Example - Adrián Cabrera Suárez",
+  "version": "0.0.0",
+  "authors": [
+    "AdrianCabrera <adrian@tomorrowscode.com>"
+  ],
+  "description": "Use example of BackboneJS",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "~1.2.1",
+    "bootstrap": "~3.3.5",
+    "underscore": "~1.8.3",
+    "jquery": "~2.1.4"
+  }
+}
