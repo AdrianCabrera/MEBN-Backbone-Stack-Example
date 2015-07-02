@@ -55,6 +55,37 @@
  	initialize: function(){
  		this.template = _.template($('.blogs-list-template').html());
  	},
+ 	events:{
+ 		'click .edit-blog': 'edit',
+ 		'click .update-blog': 'update',
+ 		'click .cancel-blog': 'cancel',
+ 		'click .delete-blog': 'delete'
+ 	},
+ 	edit: function(){
+ 		this.$('.edit-blog').toggleClass('hidden');
+ 		this.$('.delete-blog').toggleClass('hidden');
+ 		this.$('.update-blog').toggleClass('hidden');
+ 		this.$('.cancel-blog').toggleClass('hidden');
+
+ 		var author  = this.$('.author').html();
+ 		var title  = this.$('.title').html();
+ 		var url  = this.$('.url').html();
+
+ 		this.$('.author').html('<input type="text" class="form- control author-update" value="'+author+'" />');
+ 		this.$('.title').html('<input type="text" class="form- control title-update" value="'+title+'" />');
+ 		this.$('.url').html('<input type="text" class="form- control url-update" value="'+url+'" />');
+ 	},
+ 	update: function(){
+ 		this.model.set('author',$('.author-update').val());
+ 		this.model.set('title',$('.title-update').val());
+ 		this.model.set('url',$('.url-update').val());
+ 	},
+ 	cancel: function(){
+ 		blogsView.render();
+ 	},
+ 	delete: function(){
+ 		this.model.destroy();
+ 	},
  	render: function(){
  		this.$el.html(this.template(this.model.toJSON()));
  		return this;
@@ -69,7 +100,14 @@
  	model: blogs,
  	el: $('.blogs-list'),
  	initialize: function(){
+ 		var self=this;
  		this.model.on('add', this.render, this);
+ 		this.model.on('change', function(){
+ 			setTimeout(function(){
+ 				self.render();
+ 			},30)
+ 		}, this);
+ 		this.model.on('remove', this.render, this);
  	},
  	render: function(){
  		var self = this;
