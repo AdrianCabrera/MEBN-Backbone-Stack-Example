@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var app= express();
 var port= 3000;
 var mongoose = require('mongoose');
+var cors = require('cors');
 
 mongoose.connect('mongodb://localhost/blog');
 
@@ -29,6 +30,7 @@ var Blog = mongoose.model('Blog');
 app.use(express.static(__dirname+"/public"));
 app.use(bodyParser.json());
 
+app.use(cors());
 app.listen(port,function(){
 	console.log("Server listening on port: "+port);
 });
